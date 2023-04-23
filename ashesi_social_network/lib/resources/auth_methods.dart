@@ -20,7 +20,9 @@ class AuthMethods {
   //   return model.UserInfo.fromSnap(docSnap);
   // }
 
-  // sign up user
+  //get user details
+
+  //SignUp user
   Future<String> signUpUser({
     required String username,
     required String email,
@@ -31,7 +33,6 @@ class AuthMethods {
     required String bestFood,
     required String bestMovie,
     required String campusHousing,
-    // required Uint8List file,
     required String password,
   }) async {
     final http.Response api_response = await http.post(
@@ -48,7 +49,6 @@ class AuthMethods {
           "bestFood": bestFood,
           "bestMovie": bestMovie,
           "campusHousing": campusHousing,
-          // "file": file,
         },
       ),
     );
@@ -57,18 +57,15 @@ class AuthMethods {
 
     try {
       if (email.isNotEmpty ||
-              password.isNotEmpty ||
-              username.isNotEmpty ||
-              SID.isNotEmpty ||
-              major.isNotEmpty ||
-              dob.isNotEmpty ||
-              yrGroup.isNotEmpty ||
-              bestFood.isNotEmpty ||
-              bestMovie.isNotEmpty ||
-              campusHousing.isNotEmpty
-          // ||
-          // file != null
-          ) {
+          password.isNotEmpty ||
+          username.isNotEmpty ||
+          SID.isNotEmpty ||
+          major.isNotEmpty ||
+          dob.isNotEmpty ||
+          yrGroup.isNotEmpty ||
+          bestFood.isNotEmpty ||
+          bestMovie.isNotEmpty ||
+          campusHousing.isNotEmpty) {
         //register user
 
         // UserCredential userDetails = await _auth.createUserWithEmailAndPassword(
@@ -98,6 +95,50 @@ class AuthMethods {
         //       user.formateJson(),
         //     );
 
+        val = 'success';
+      }
+    } catch (err) {
+      val = err.toString();
+    }
+    return val;
+  }
+
+  //Update user
+  Future<String> updateProfile({
+    required String major,
+    required String SID,
+    required String dob,
+    required String yrGroup,
+    required String bestFood,
+    required String bestMovie,
+    required String campusHousing,
+  }) async {
+    final http.Response api_response = await http.post(
+      Uri.parse(
+          'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles'),
+      body: jsonEncode(
+        <String, dynamic>{
+          "SID": SID,
+          "major": major,
+          "dob": dob,
+          "yrGroup": yrGroup,
+          "bestFood": bestFood,
+          "bestMovie": bestMovie,
+          "campusHousing": campusHousing,
+        },
+      ),
+    );
+
+    String val = 'Some error occurred';
+
+    try {
+      if (SID.isNotEmpty ||
+          major.isNotEmpty ||
+          dob.isNotEmpty ||
+          yrGroup.isNotEmpty ||
+          bestFood.isNotEmpty ||
+          bestMovie.isNotEmpty ||
+          campusHousing.isNotEmpty) {
         val = 'success';
       }
     } catch (err) {

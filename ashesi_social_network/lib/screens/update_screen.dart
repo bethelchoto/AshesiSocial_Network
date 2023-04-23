@@ -9,18 +9,17 @@ import 'package:webtech_flutter_app/utils/global.dart';
 import 'package:webtech_flutter_app/utils/utils.dart';
 import 'package:webtech_flutter_app/widgets/text_field_input.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class UpdateProfileScreen extends StatefulWidget {
+  const UpdateProfileScreen({super.key});
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _UpdateProfileScreenState createState() => _UpdateProfileScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  // final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _SIDController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _majorController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _yrGroupController = TextEditingController();
@@ -34,10 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
     _SIDController.dispose();
-    _usernameController.dispose();
     _majorController.dispose();
     _dobController.dispose();
     _yrGroupController.dispose();
@@ -53,15 +49,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
-  void signUpUser() async {
+  void updateProfile() async {
     setState(() {
       _isLoad = true;
     });
 
-    String val = await AuthMethods().signUpUser(
-      email: _emailController.text,
-      password: _passwordController.text,
-      username: _usernameController.text,
+    String val = await AuthMethods().updateProfile(
       SID: _SIDController.text,
       major: _majorController.text,
       dob: _dobController.text,
@@ -69,7 +62,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       bestFood: _bestFoodController.text,
       bestMovie: _bestMovieController.text,
       campusHousing: _campusHousing.text,
-      // file: _image!,
     );
 
     setState(() {
@@ -146,35 +138,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 )
-              ],
-            ),
-
-            sizeBoxed,
-
-            Row(
-              children: [
-                Expanded(
-                  // Student Name
-                  child: ListTile(
-                    subtitle: TextFieldInput(
-                      hintText: "Enter Student Name",
-                      textInputType: TextInputType.text,
-                      textEditingController: _usernameController,
-                      textStyle: textBoxStyle,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  // Student Email
-                  child: ListTile(
-                    subtitle: TextFieldInput(
-                      hintText: "Enter Student Email",
-                      textInputType: TextInputType.text,
-                      textEditingController: _emailController,
-                      textStyle: textBoxStyle,
-                    ),
-                  ),
-                ),
               ],
             ),
 
@@ -278,23 +241,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             sizeBoxed,
 
-            //password
-            ListTile(
-              subtitle: TextFieldInput(
-                hintText: "Enter your password",
-                textInputType: TextInputType.text,
-                textEditingController: _passwordController,
-                ispass: true,
-                textStyle: textBoxStyle,
-              ),
-            ),
-            sizeBoxed,
-
             // button SignUp
             Padding(
               padding: const EdgeInsets.fromLTRB(150.0, 0.0, 150.0, 0),
               child: InkWell(
-                onTap: signUpUser,
+                onTap: updateProfile,
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -312,37 +263,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: primaryColor,
                           ),
                         )
-                      : const Text('Sign Up'),
+                      : const Text('Update'),
                 ),
               ),
             ),
-
             sizeBoxed,
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                  ),
-                  child: const Text("Already Have Account?"),
-                ),
-                GestureDetector(
-                  // moveToLogin
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 2.0,
-                    ),
-                    child: const Text(
-                      "SignUp",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
