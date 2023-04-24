@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:webtech_flutter_app/resources/auth_methods.dart';
+import 'package:webtech_flutter_app/resources/HttpMethods.dart';
 import 'package:webtech_flutter_app/responsive/responsive_layout_screen.dart';
 import 'package:webtech_flutter_app/screens/dashBoard.dart';
+import 'package:webtech_flutter_app/screens/dashBoardScreen.dart';
 import 'package:webtech_flutter_app/utils/colors.dart';
 import 'package:webtech_flutter_app/utils/global.dart';
 import 'package:webtech_flutter_app/utils/utils.dart';
@@ -19,7 +20,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _SIDController = TextEditingController();
+  final TextEditingController _studentIdController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _majorController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
@@ -36,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _SIDController.dispose();
+    _studentIdController.dispose();
     _usernameController.dispose();
     _majorController.dispose();
     _dobController.dispose();
@@ -58,11 +59,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isLoad = true;
     });
 
-    String val = await AuthMethods().signUpUser(
+    String userValue = await HttpMethods().signUpUser(
       email: _emailController.text,
       password: _passwordController.text,
       username: _usernameController.text,
-      SID: _SIDController.text,
+      studentId: _studentIdController.text,
       major: _majorController.text,
       dob: _dobController.text,
       yrGroup: _yrGroupController.text,
@@ -76,14 +77,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isLoad = false;
     });
 
-    if (val != 'success') {
-      showSnackBar(val, context);
+    if (userValue != 'success') {
+      showSnackBar(userValue, context);
     } else {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
-            mobileScreenLayout: dashBoardScreen(),
-            webScreenLayout: dashBoardScreen(),
+            mobileScreenLayout: DashBoardScreen(),
+            webScreenLayout: DashBoardScreen(),
           ),
         ),
       );
@@ -93,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void moveToLogin() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const dashBoardScreen(),
+        builder: (context) => const DashBoardScreen(),
       ),
     );
   }
@@ -106,22 +107,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Color getColor(Set<MaterialState> states) {
-    //   const Set<MaterialState> interactiveStates = <MaterialState>{
-    //     MaterialState.pressed,
-    //     MaterialState.hovered,
-    //     MaterialState.focused,
-    //   };
-    //   if (states.any(interactiveStates.contains)) {
-    //     return Colors.blue;
-    //   }
-    //   return Colors.red;
-    // }
-
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(450.0, 30.0, 450.0, 0),
+        padding: const EdgeInsets.fromLTRB(450.0, 10.0, 450.0, 0),
         child: Column(
           children: [
             sizeBoxed,
@@ -161,6 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textInputType: TextInputType.text,
                       textEditingController: _usernameController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -172,6 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textInputType: TextInputType.text,
                       textEditingController: _emailController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -190,6 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textInputType: TextInputType.text,
                       textEditingController: _majorController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -199,8 +191,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     subtitle: TextFieldInput(
                       hintText: "Enter Student ID",
                       textInputType: TextInputType.text,
-                      textEditingController: _SIDController,
+                      textEditingController: _studentIdController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -218,6 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textInputType: TextInputType.text,
                       textEditingController: _dobController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -230,6 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textInputType: TextInputType.text,
                       textEditingController: _yrGroupController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -248,6 +243,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textInputType: TextInputType.text,
                       textEditingController: _bestFoodController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -259,6 +255,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textInputType: TextInputType.text,
                       textEditingController: _bestMovieController,
                       textStyle: textBoxStyle,
+                      numLines: 1,
                     ),
                   ),
                 ),
@@ -273,6 +270,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 textInputType: TextInputType.text,
                 textEditingController: _campusHousing,
                 textStyle: textBoxStyle,
+                numLines: 1,
               ),
             ),
 
@@ -286,6 +284,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 textEditingController: _passwordController,
                 ispass: true,
                 textStyle: textBoxStyle,
+                numLines: 1,
               ),
             ),
             sizeBoxed,

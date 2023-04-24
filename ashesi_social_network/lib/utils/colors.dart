@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 const backgroundColor = Color.fromARGB(255, 120, 39, 39);
 const lowbackgroundColor = Colors.grey;
@@ -18,3 +19,13 @@ const navRailStyle = TextStyle(color: primaryColor);
 
 const displayText = Text("\n" '     ASHESI\n' "     SOCIAL\n" "NETWORKING\n",
     style: TextStyle(fontSize: 70));
+
+const sizeBox = SizedBox(
+  height: 7,
+);
+
+final BottomItemNavy = BottomNavyBarItem(
+    icon: const Icon(Icons.people),
+    title: const Text('Users'),
+    activeColor: primaryColor,
+    textAlign: TextAlign.center);

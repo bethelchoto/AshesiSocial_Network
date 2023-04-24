@@ -7,6 +7,7 @@ class TextFieldInput extends StatelessWidget {
   final String hintText;
   final TextInputType textInputType;
   final TextStyle textStyle;
+  final int numLines;
 
   const TextFieldInput({
     super.key,
@@ -15,6 +16,7 @@ class TextFieldInput extends StatelessWidget {
     required this.hintText,
     required this.textInputType,
     required this.textStyle,
+    required this.numLines,
   });
 
   @override
@@ -37,6 +39,7 @@ class TextFieldInput extends StatelessWidget {
       keyboardType: textInputType,
       obscureText: ispass,
       style: textStyle,
+      maxLines: numLines,
     );
   }
 }
