@@ -1,12 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:webtech_flutter_app/resources/HttpMethods.dart';
 import 'package:webtech_flutter_app/responsive/responsive_layout_screen.dart';
-import 'package:webtech_flutter_app/screens/dashBoard.dart';
 import 'package:webtech_flutter_app/screens/dashBoardScreen.dart';
 import 'package:webtech_flutter_app/utils/colors.dart';
-import 'package:webtech_flutter_app/utils/global.dart';
 import 'package:webtech_flutter_app/utils/utils.dart';
 import 'package:webtech_flutter_app/widgets/text_field_input.dart';
 
@@ -28,9 +24,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _bestFoodController = TextEditingController();
   final TextEditingController _bestMovieController = TextEditingController();
   final TextEditingController _campusHousing = TextEditingController();
-  Uint8List? _image;
+
   bool _isLoad = false;
-  bool isChecked = false;
 
   @override
   void dispose() {
@@ -45,13 +40,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _bestFoodController.dispose();
     _bestMovieController.dispose();
     _campusHousing.dispose();
-  }
-
-  void selectImg() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = img;
-    });
   }
 
   void signUpUser() async {
@@ -70,7 +58,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       bestFood: _bestFoodController.text,
       bestMovie: _bestMovieController.text,
       campusHousing: _campusHousing.text,
-      // file: _image!,
     );
 
     setState(() {
@@ -91,20 +78,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void moveToLogin() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const DashBoardScreen(),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _dobController.text = "";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,26 +88,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             sizeBoxed,
             Stack(
-              children: [
-                _image != null
-                    ? CircleAvatar(
-                        radius: 60,
-                        backgroundImage: MemoryImage(_image!),
-                      )
-                    : const CircleAvatar(
-                        radius: 60,
-                        backgroundImage: NetworkImage('assets/avatar.png'),
-                      ),
-                Positioned(
-                  bottom: -3,
-                  left: 76,
-                  child: IconButton(
-                    onPressed: selectImg,
-                    icon: const Icon(
-                      Icons.add_a_photo,
-                    ),
-                  ),
-                )
+              children: const [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage('assets/avatar.png'),
+                ),
               ],
             ),
 

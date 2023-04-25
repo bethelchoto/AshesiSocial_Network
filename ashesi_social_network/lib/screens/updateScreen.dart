@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webtech_flutter_app/resources/HttpMethods.dart';
 import 'package:webtech_flutter_app/utils/colors.dart';
-import 'package:webtech_flutter_app/utils/global.dart';
 import 'package:webtech_flutter_app/widgets/text_field_input.dart';
 
 class UpdateProfile extends StatefulWidget {
@@ -21,6 +20,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final TextEditingController _campusHousing = TextEditingController();
   final TextEditingController _sidController = TextEditingController();
 
+  bool _isLoad = false;
+
   @override
   void initState() {
     super.initState();
@@ -35,10 +36,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(450.0, 30.0, 450.0, 0),
+        padding: const EdgeInsets.fromLTRB(450.0, 10, 450.0, 0),
         child: Column(
           children: [
+            Stack(
+              children: const [
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage('assets/avatar.png'),
+                ),
+              ],
+            ),
             Row(
               children: [
                 Expanded(
@@ -122,33 +132,52 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 ),
               ],
             ),
-            ElevatedButton(
-              onPressed: () async {
-                print(widget.post['SID'].toString());
-                Map<String, String> dataToUpdate = {
-                  // 'name': widget.post['SID'].toString(),
-                  // "email": widget.post['SID'].toString(),
-                  "SID": widget.post['SID'].toString(),
-                  "major": _majorController.text,
-                  "DOB": _dobController.text,
-                  "year": _yrGroupController.text,
-                  "bestFood": _bestFoodController.text,
-                  "bestMovie": _bestMovieController.text,
-                  "campusHousing": _campusHousing.text,
-                };
-                bool status = await HttpMethods()
-                    .updateProfile(dataToUpdate, widget.post['SID'].toString());
+            // button login
+            Padding(
+              padding: const EdgeInsets.only(bottom: 100.0),
+              child: InkWell(
+                onTap: () async {
+                  Map<String, String> dataToUpdate = {
+                    "SID": widget.post['SID'].toString(),
+                    "major": _majorController.text,
+                    "DOB": _dobController.text,
+                    "year": _yrGroupController.text,
+                    "bestFood": _bestFoodController.text,
+                    "bestMovie": _bestMovieController.text,
+                    "campusHousing": _campusHousing.text,
+                  };
+                  bool status = await HttpMethods().updateProfile(
+                      dataToUpdate, widget.post['SID'].toString());
 
-                if (status) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Student Updated Successfully')));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Failed to Update')));
-                }
-              },
-              child: Text('Submit'),
-            )
+                  if (status) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Student Updated Successfully')));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to Update')));
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      color: blueColor),
+                  child: _isLoad
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : const Text('UPDATE'),
+                ),
+              ),
+            ),
           ],
         ),
       ),

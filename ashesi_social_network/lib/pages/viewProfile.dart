@@ -18,7 +18,7 @@ class viewProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('View Profile'),
+        title: const Text('Profile'),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(450.0, 10.0, 450.0, 0),

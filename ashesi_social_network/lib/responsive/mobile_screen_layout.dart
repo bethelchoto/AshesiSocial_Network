@@ -1,11 +1,6 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webtech_flutter_app/utils/colors.dart';
-// import 'package:webtech_flutter_app/models/users.dart' as modelUser;
-// import 'package:provider/provider.dart';
-// import 'package:webtech_flutter_app/providers/Uproviders.dart';
 
 class mobileScreenLayout extends StatefulWidget {
   const mobileScreenLayout({super.key});

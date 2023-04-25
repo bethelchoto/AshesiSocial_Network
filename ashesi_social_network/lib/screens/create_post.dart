@@ -34,8 +34,6 @@ class _CreatePostsState extends State<CreatePosts> {
     String mssgValue = await HttpMethods().postMssg(
       email: _emailController.text,
       body: _bodyController.text,
-
-      // file: _image!,
     );
 
     setState(() {
@@ -61,7 +59,7 @@ class _CreatePostsState extends State<CreatePosts> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(450.0, 300.0, 450.0, 100.0),
+        padding: const EdgeInsets.fromLTRB(0.0, 300.0, 450.0, 100.0),
         child: Column(
           children: [
             Expanded(
@@ -91,7 +89,7 @@ class _CreatePostsState extends State<CreatePosts> {
 
             // button SignUp
             Padding(
-              padding: const EdgeInsets.fromLTRB(150.0, 10.0, 150.0, 20.0),
+              padding: const EdgeInsets.fromLTRB(12.0, 10.0, 20.0, 20.0),
               child: InkWell(
                 onTap: postMssg,
                 child: Container(

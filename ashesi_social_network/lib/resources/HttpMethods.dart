@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class HttpMethods {
+  final String url =
+      'https://us-central1-ashesisocial.cloudfunctions.net/ashesi_social_network_api';
   //SAVING PROFILE TO THE DATABASE
   Future<String> signUpUser({
     required String name,
@@ -17,8 +19,7 @@ class HttpMethods {
     required String password,
   }) async {
     final http.Response profileAdd = await http.post(
-      Uri.parse(
-          'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles'),
+      Uri.parse('${url}/profiles'),
       body: jsonEncode(
         <String, dynamic>{
           'name': name,
@@ -62,13 +63,12 @@ class HttpMethods {
     required String body,
   }) async {
     final http.Response addPost = await http.post(
-      Uri.parse(
-          'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/posts'),
+      Uri.parse('${url}/posts'),
       body: jsonEncode(
         <String, dynamic>{
           "email": email,
           "body": body,
-          "currenttime": DateTime.now(),
+          "currenttime": DateTime.now().toString(),
         },
       ),
     );
@@ -89,8 +89,7 @@ class HttpMethods {
     List<Map> mssgs = [];
 
     // Get all the data from the API
-    http.Response response = await http.get(Uri.parse(
-        'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/posts'));
+    http.Response response = await http.get(Uri.parse('${url}/posts'));
 
     if (response.statusCode == 200) {
       // get the data from the response
@@ -110,10 +109,7 @@ class HttpMethods {
 
     // Update the profile
     http.Response response = await http.post(
-      Uri.parse(
-          // 'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles/update?SID=$SID'), //
-
-          'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles/update'),
+      Uri.parse('${url}/profiles/update'),
       body: jsonEncode(profileData),
       headers: {'Content-type': 'application/json'},
     );
@@ -129,8 +125,8 @@ class HttpMethods {
     Map profile = {};
 
     // GET ONE DATA ITEM FROM THE API
-    http.Response response = await http.get(Uri.parse(
-        'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles?SID=$profileId'));
+    http.Response response =
+        await http.get(Uri.parse('${url}/profiles?SID=$profileId'));
 
     if (response.statusCode == 200) {
       // get data from the response
@@ -141,68 +137,4 @@ class HttpMethods {
     }
     return profile;
   }
-
-  // //Update user
-  // Future<String> updateProfile({
-  //   required String major,
-  //   required String SID,
-  //   required String dob,
-  //   required String yrGroup,
-  //   required String bestFood,
-  //   required String bestMovie,
-  //   required String campusHousing,
-  // }) async {
-  //   final http.Response api_response = await http.post(
-  //     Uri.parse(
-  //         'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles'),
-  //     body: jsonEncode(
-  //       <String, dynamic>{
-  //         "SID": SID,
-  //         "major": major,
-  //         "dob": dob,
-  //         "yrGroup": yrGroup,
-  //         "bestFood": bestFood,
-  //         "bestMovie": bestMovie,
-  //         "campusHousing": campusHousing,
-  //       },
-  //     ),
-  //   );
-
-  //   String val = 'Some error occurred';
-
-  //   try {
-  //     if (SID.isNotEmpty ||
-  //         major.isNotEmpty ||
-  //         dob.isNotEmpty ||
-  //         yrGroup.isNotEmpty ||
-  //         bestFood.isNotEmpty ||
-  //         bestMovie.isNotEmpty ||
-  //         campusHousing.isNotEmpty) {
-  //       val = 'success';
-  //     }
-  //   } catch (err) {
-  //     val = err.toString();
-  //   }
-  //   return val;
-  // }
-
-  // User Login
-  // Future<String> userLogin({
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   String val = 'Error Occurred';
-  //   try {
-  //     if (email.isNotEmpty || password.isNotEmpty) {
-  //       await _auth.signInWithEmailAndPassword(
-  //           email: email, password: password);
-  //       val = 'success';
-  //     } else {
-  //       val = "Please enter the missing fields";
-  //     }
-  //   } catch (err) {
-  //     val = err.toString();
-  //   }
-  //   return val;
-  // }
 }

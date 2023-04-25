@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webtech_flutter_app/pages/home_screen.dart';
 import 'package:webtech_flutter_app/pages/showFeedPages.dart';
-import 'package:webtech_flutter_app/pages/showMssgs.dart';
 import 'package:webtech_flutter_app/pages/showProfile.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
@@ -26,15 +25,15 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   dashSection() {
     switch (index) {
       case 0:
-        return const ShowFeedPage();
+        return const HomePage();
       case 1:
-        return const ShowFeedPage();
+        return showProfile();
       case 2:
         return const ShowFeedPage();
       case 3:
-        return showProfile();
+        return HomePage();
       case 4:
-        return ShowMssgs();
+        return HomePage();
     }
   }
 
@@ -48,11 +47,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           activeColor: Colors.purpleAccent,
           textAlign: TextAlign.center,
         ),
-        BottomNavyBarItem(
-            icon: const Icon(Icons.notifications),
-            title: const Text('Notifications'),
-            activeColor: Colors.pink,
-            textAlign: TextAlign.center),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
           title: const Text('Profile'),
@@ -71,6 +65,11 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           activeColor: Colors.blue,
           textAlign: TextAlign.center,
         ),
+        BottomNavyBarItem(
+            icon: const Icon(Icons.notifications),
+            title: const Text('Notifications'),
+            activeColor: Colors.pink,
+            textAlign: TextAlign.center),
       ],
       onItemSelected: (index) => setState(() => this.index = index),
     );

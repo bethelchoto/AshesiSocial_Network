@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:webtech_flutter_app/providers/Uproviders.dart';
-import 'package:webtech_flutter_app/utils/global.dart';
-import 'package:webtech_flutter_app/models/users.dart' as modelUser;
-import 'package:provider/provider.dart';
+import 'package:webtech_flutter_app/utils/colors.dart';
 
 class ResponsiveLayout extends StatefulWidget {
   final Widget webScreenLayout;
@@ -17,17 +14,6 @@ class ResponsiveLayout extends StatefulWidget {
 }
 
 class _ResponsiveLayoutState extends State<ResponsiveLayout> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   addData();
-  // }
-
-  // addData() async {
-  //   ProUser _userProvider = Provider.of(context, listen: false);
-  //   await _userProvider.regetUser();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

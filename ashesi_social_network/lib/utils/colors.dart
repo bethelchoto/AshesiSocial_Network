@@ -34,3 +34,7 @@ final txtboarder = BoxDecoration(
   color: Colors.black,
   width: 1.0,
 ));
+const webScreenSize = 600;
+const sizeBoxed = SizedBox(
+  height: 7,
+);
