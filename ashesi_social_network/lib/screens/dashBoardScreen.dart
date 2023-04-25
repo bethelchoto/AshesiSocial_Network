@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webtech_flutter_app/pages/home_screen.dart';
+import 'package:webtech_flutter_app/pages/showFeedPages.dart';
 import 'package:webtech_flutter_app/pages/showMssgs.dart';
-import 'package:webtech_flutter_app/pages/viewProfiles.dart';
+import 'package:webtech_flutter_app/pages/showProfile.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -25,13 +26,13 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   dashSection() {
     switch (index) {
       case 0:
-        return const HomePage();
+        return const ShowFeedPage();
       case 1:
-        return ShowMssgs();
+        return const ShowFeedPage();
       case 2:
-        return ShowProfile();
+        return const ShowFeedPage();
       case 3:
-        return ShowMssgs();
+        return showProfile();
       case 4:
         return ShowMssgs();
     }

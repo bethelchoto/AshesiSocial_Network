@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:webtech_flutter_app/pages/viewProfile.dart';
 import 'package:webtech_flutter_app/screens/sign_screen.dart';
 import 'package:webtech_flutter_app/utils/colors.dart';
 import 'package:webtech_flutter_app/widgets/text_field_input.dart';
 
-class ShowProfile extends StatefulWidget {
-  ShowProfile({super.key});
+class showProfile extends StatefulWidget {
+  showProfile({super.key});
 
   @override
-  State<ShowProfile> createState() => _ShowProfileState();
+  State<showProfile> createState() => _showProfileState();
 }
 
-class _ShowProfileState extends State<ShowProfile> {
+class _showProfileState extends State<showProfile> {
   final TextEditingController _stdIdController = TextEditingController();
   bool _isLoad = false;
 
@@ -47,8 +48,12 @@ class _ShowProfileState extends State<ShowProfile> {
                   ),
                   Expanded(
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
                         final id = _stdIdController.text;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => viewProfile(id.toString())),
+                        );
                       }, //to be tapped
                       child: Container(
                         width: double.infinity,

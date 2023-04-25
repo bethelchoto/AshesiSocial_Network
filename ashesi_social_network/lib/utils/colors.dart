@@ -10,7 +10,7 @@ const blackColor = Colors.black;
 const textBoxStyle = TextStyle(color: blackColor);
 
 const myTextStyle = TextStyle(
-  color: Colors.white,
+  color: blackColor,
   fontSize: 20,
 );
 
@@ -29,3 +29,8 @@ final BottomItemNavy = BottomNavyBarItem(
     title: const Text('Users'),
     activeColor: primaryColor,
     textAlign: TextAlign.center);
+final txtboarder = BoxDecoration(
+    border: Border.all(
+  color: Colors.black,
+  width: 1.0,
+));

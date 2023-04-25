@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:webtech_flutter_app/pages/showMssgs.dart';
 import 'package:webtech_flutter_app/responsive/mobile_screen_layout.dart';
 import 'package:webtech_flutter_app/responsive/responsive_layout_screen.dart';
 import 'package:webtech_flutter_app/responsive/web_screen_layout.dart';
 import 'package:webtech_flutter_app/screens/dashBoardScreen.dart';
-import 'package:webtech_flutter_app/screens/sign_screen.dart';
 import 'package:webtech_flutter_app/utils/colors.dart';
 
 void main() async {
@@ -53,7 +51,7 @@ class MyApp extends StatelessWidget {
               ),
             );
           }
-          return DashBoardScreen();
+          return const DashBoardScreen();
         },
       ),
     );

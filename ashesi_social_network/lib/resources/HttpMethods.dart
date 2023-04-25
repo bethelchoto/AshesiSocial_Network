@@ -5,12 +5,12 @@ import 'package:http/http.dart' as http;
 class HttpMethods {
   //SAVING PROFILE TO THE DATABASE
   Future<String> signUpUser({
-    required String username,
+    required String name,
     required String email,
     required String major,
-    required String studentId,
-    required String dob,
-    required String yrGroup,
+    required String SID,
+    required String DOB,
+    required String year,
     required String bestFood,
     required String bestMovie,
     required String campusHousing,
@@ -21,12 +21,12 @@ class HttpMethods {
           'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles'),
       body: jsonEncode(
         <String, dynamic>{
-          'username': username,
+          'name': name,
           "email": email,
-          "SID": studentId,
+          "SID": SID,
           "major": major,
-          "dob": dob,
-          "yrGroup": yrGroup,
+          "DOB": DOB,
+          "year": year,
           "bestFood": bestFood,
           "bestMovie": bestMovie,
           "campusHousing": campusHousing,
@@ -39,11 +39,11 @@ class HttpMethods {
     try {
       if (email.isNotEmpty ||
           password.isNotEmpty ||
-          username.isNotEmpty ||
-          studentId.isNotEmpty ||
+          name.isNotEmpty ||
+          SID.isNotEmpty ||
           major.isNotEmpty ||
-          dob.isNotEmpty ||
-          yrGroup.isNotEmpty ||
+          DOB.isNotEmpty ||
+          year.isNotEmpty ||
           bestFood.isNotEmpty ||
           bestMovie.isNotEmpty ||
           campusHousing.isNotEmpty) {
@@ -68,6 +68,7 @@ class HttpMethods {
         <String, dynamic>{
           "email": email,
           "body": body,
+          "currenttime": DateTime.now(),
         },
       ),
     );
@@ -103,15 +104,19 @@ class HttpMethods {
   }
 
   // EDIT PROFILE METHOD
-  Future<bool> updateProfile(Map profileData, String studentID) async {
+  Future<bool> updateProfile(
+      Map<String, dynamic> profileData, String SID) async {
     bool status = false;
 
     // Update the profile
-    http.Response response = await http.put(
-        Uri.parse(
-            'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles?SID=$studentID'),
-        body: jsonEncode(profileData),
-        headers: {'Content-type': 'application/json'});
+    http.Response response = await http.post(
+      Uri.parse(
+          // 'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles/update?SID=$SID'), //
+
+          'https://us-central1-ashesisocialnetwork.cloudfunctions.net/ashesi_social_network_api/profiles/update'),
+      body: jsonEncode(profileData),
+      headers: {'Content-type': 'application/json'},
+    );
 
     if (response.statusCode == 200) {
       status = response.body.isNotEmpty;

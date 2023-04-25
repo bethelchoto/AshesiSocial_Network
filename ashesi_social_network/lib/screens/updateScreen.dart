@@ -13,32 +13,25 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
-  final TextEditingController _studentIdController = TextEditingController();
   final TextEditingController _majorController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _yrGroupController = TextEditingController();
   final TextEditingController _bestFoodController = TextEditingController();
   final TextEditingController _bestMovieController = TextEditingController();
   final TextEditingController _campusHousing = TextEditingController();
+  final TextEditingController _sidController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _majorController.text = widget.post['major'];
-    _dobController.text = widget.post['dob'];
-    _yrGroupController.text = widget.post['yrGroup'];
+    _dobController.text = widget.post['DOB'];
+    _yrGroupController.text = widget.post['year'];
     _bestFoodController.text = widget.post['bestFood'];
     _bestMovieController.text = widget.post['bestMovie'];
     _campusHousing.text = widget.post['campusHousing'];
   }
 
-//     return Scaffold(
-//       backgroundColor: backgroundColor,
-//       body: Padding(
-//         padding: const EdgeInsets.fromLTRB(450.0, 30.0, 450.0, 0),
-//         child: Column(
-//           children: [
-//             sizeBoxed,
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,23 +54,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ),
                 ),
                 Expanded(
-                  // Student ID
-                  child: ListTile(
-                    subtitle: TextFieldInput(
-                      hintText: "Enter Student ID",
-                      textInputType: TextInputType.text,
-                      textEditingController: _studentIdController,
-                      textStyle: textBoxStyle,
-                      numLines: 1,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            sizeBoxed,
-            Row(
-              children: [
-                Expanded(
                   // Student DOB
                   child: ListTile(
                     subtitle: TextFieldInput(
@@ -89,7 +65,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ),
                   ),
                 ),
-                sizeBoxed,
+              ],
+            ),
+            Row(
+              children: [
                 Expanded(
                   // Student YearGroup
                   child: ListTile(
@@ -102,9 +81,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ),
                   ),
                 ),
+                Expanded(
+                  child: ListTile(
+                    subtitle: TextFieldInput(
+                      hintText: "Housing",
+                      textInputType: TextInputType.text,
+                      textEditingController: _campusHousing,
+                      textStyle: textBoxStyle,
+                      numLines: 1,
+                    ),
+                  ),
+                ),
               ],
             ),
-            sizeBoxed,
             Row(
               children: [
                 Expanded(
@@ -133,38 +122,33 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 ),
               ],
             ),
-            sizeBoxed,
-            ListTile(
-              subtitle: TextFieldInput(
-                hintText: "Housing",
-                textInputType: TextInputType.text,
-                textEditingController: _campusHousing,
-                textStyle: textBoxStyle,
-                numLines: 1,
-              ),
-            ),
             ElevatedButton(
-                onPressed: () async {
-                  Map<String, String> dataToUpdate = {
-                    'bestFood': _bestFoodController.text,
-                    'bestMovie': _bestMovieController.text,
-                    'major': _majorController.text,
-                    'dob': _dobController.text,
-                    'campusHousing': _campusHousing.text,
-                    'yrGroup': _yrGroupController.text,
-                  };
-                  bool status = await HttpMethods().updateProfile(
-                      dataToUpdate, _studentIdController.text.toString());
+              onPressed: () async {
+                print(widget.post['SID'].toString());
+                Map<String, String> dataToUpdate = {
+                  // 'name': widget.post['SID'].toString(),
+                  // "email": widget.post['SID'].toString(),
+                  "SID": widget.post['SID'].toString(),
+                  "major": _majorController.text,
+                  "DOB": _dobController.text,
+                  "year": _yrGroupController.text,
+                  "bestFood": _bestFoodController.text,
+                  "bestMovie": _bestMovieController.text,
+                  "campusHousing": _campusHousing.text,
+                };
+                bool status = await HttpMethods()
+                    .updateProfile(dataToUpdate, widget.post['SID'].toString());
 
-                  if (status) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Student Updated Successfully')));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to Update')));
-                  }
-                },
-                child: Text('Submit'))
+                if (status) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Student Updated Successfully')));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to Update')));
+                }
+              },
+              child: Text('Submit'),
+            )
           ],
         ),
       ),
