@@ -31,9 +31,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       case 2:
         return const ShowFeedPage();
       case 3:
-        return HomePage();
-      case 4:
-        return HomePage();
+        return const HomePage();
     }
   }
 
@@ -57,12 +55,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           icon: const Icon(Icons.message),
           title: const Text('Message'),
           activeColor: Colors.purpleAccent,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.settings),
-          title: const Text('Settings'),
-          activeColor: Colors.blue,
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(

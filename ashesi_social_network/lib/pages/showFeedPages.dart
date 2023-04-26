@@ -52,7 +52,9 @@ class _ShowFeedPageState extends State<ShowFeedPage> {
                                 child: ListTile(
                                   title: Text('${client['email']}',
                                       overflow: TextOverflow.ellipsis),
-                                  subtitle: Text('${client['body']}'),
+                                  subtitle: Text('${client['body']}',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 5),
                                   leading: const CircleAvatar(
                                       backgroundImage:
                                           NetworkImage('assets/avatar.png')),
